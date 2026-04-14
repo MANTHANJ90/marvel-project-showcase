@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 interface Star {
   x: number;
@@ -10,14 +10,8 @@ interface Star {
 
 export default function AnimatedBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  useEffect(() => {
-    if (!mounted) return;
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
@@ -45,7 +39,6 @@ export default function AnimatedBackground() {
       });
     }
 
-    // Blobs
     const blobs = Array.from({ length: 4 }, () => ({
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
@@ -59,7 +52,6 @@ export default function AnimatedBackground() {
       ctx.fillStyle = "rgba(10, 10, 25, 0.15)";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // Draw gradient blobs
       for (const blob of blobs) {
         blob.x += blob.vx;
         blob.y += blob.vy;
@@ -73,7 +65,6 @@ export default function AnimatedBackground() {
         ctx.fillRect(blob.x - blob.r, blob.y - blob.r, blob.r * 2, blob.r * 2);
       }
 
-      // Draw flowing stars
       const cx = canvas.width / 2;
       const cy = canvas.height / 2;
 
@@ -116,15 +107,14 @@ export default function AnimatedBackground() {
       cancelAnimationFrame(animId);
       window.removeEventListener("resize", resize);
     };
-  }, [mounted]);
-
-  if (!mounted) return null;
+  }, []);
 
   return (
     <canvas
       ref={canvasRef}
       className="pointer-events-none fixed inset-0 z-0"
       aria-hidden="true"
+      suppressHydrationWarning
     />
   );
 }
