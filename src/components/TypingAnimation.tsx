@@ -8,11 +8,19 @@ interface TypingAnimationProps {
 }
 
 export default function TypingAnimation({ words, speed = 100, deleteSpeed = 50, pauseDuration = 5000 }: TypingAnimationProps) {
-  const [text, setText] = useState("");
+  const [text, setText] = useState(words[0] ?? "");
   const [wordIndex, setWordIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
+    setIsReady(true);
+    setText("");
+  }, []);
+
+  useEffect(() => {
+    if (!isReady) return;
+
     const currentWord = words[wordIndex];
 
     const timeout = setTimeout(() => {
@@ -31,11 +39,11 @@ export default function TypingAnimation({ words, speed = 100, deleteSpeed = 50, 
     }, isDeleting ? deleteSpeed : speed);
 
     return () => clearTimeout(timeout);
-  }, [text, isDeleting, wordIndex, words, speed, deleteSpeed, pauseDuration]);
+  }, [text, isDeleting, wordIndex, words, speed, deleteSpeed, pauseDuration, isReady]);
 
   return (
     <span className="font-mono text-lg text-primary md:text-xl">
-      {text}
+      {isReady ? text : words[0]}
       <span className="animate-[pulse_1s_ease-in-out_infinite] text-primary">|</span>
     </span>
   );
