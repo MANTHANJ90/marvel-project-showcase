@@ -50,7 +50,7 @@ export default function ProjectsSection({ showAll = false }: { showAll?: boolean
               </div>
 
               <div className="flex gap-2">
-                {"demo" in project && project.demo ? (
+              {"demo" in project && project.demo ? (
                   <a
                     href={project.demo}
                     target="_blank"
