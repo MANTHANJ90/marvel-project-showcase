@@ -1,26 +1,28 @@
-import { Zap } from "lucide-react";
+import { CheckCircle } from "lucide-react";
 import { resumeData } from "@/data/resume";
+import SectionReveal from "@/components/SectionReveal";
 
 export default function HighlightsSection() {
   return (
     <section id="highlights" className="mx-auto max-w-4xl px-6 py-24">
-      <div className="sticky top-16 z-20 -mx-6 mb-8 bg-background/85 px-6 py-4 backdrop-blur-md">
-        <h2 className="text-center font-heading text-3xl font-bold tracking-tight md:text-4xl">
-          Key <span className="text-gradient">Highlights</span>
-        </h2>
-      </div>
+      <SectionReveal>
+        <div className="sticky top-16 z-20 -mx-6 bg-background/85 px-6 py-4 backdrop-blur-md">
+          <h2 className="text-center font-heading text-3xl font-bold tracking-tight md:text-4xl">
+            Key <span className="text-gradient">Highlights</span>
+          </h2>
+        </div>
+      </SectionReveal>
 
-      <div className="grid gap-4 md:grid-cols-2">
+      <ul className="mt-8 space-y-3">
         {resumeData.keyHighlights.map((highlight, i) => (
-          <div
-            key={i}
-            className="glow-border card-hover flex items-start gap-3 rounded-xl bg-card p-5"
-          >
-            <Zap size={16} className="mt-0.5 shrink-0 text-primary" />
-            <p className="text-sm leading-relaxed text-muted-foreground">{highlight}</p>
-          </div>
+          <SectionReveal key={i} delay={i * 0.06}>
+            <li className="flex items-start gap-3 rounded-lg border border-border/50 bg-card/60 px-5 py-4">
+              <CheckCircle size={18} className="mt-0.5 shrink-0 text-primary" />
+              <span className="text-sm leading-relaxed text-foreground/85">{highlight}</span>
+            </li>
+          </SectionReveal>
         ))}
-      </div>
+      </ul>
     </section>
   );
 }
