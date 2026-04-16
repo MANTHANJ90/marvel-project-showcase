@@ -37,15 +37,7 @@ export default function ExperienceSection() {
                 <div className="mb-1 font-mono text-xs text-primary">{exp.period}</div>
                 <h3 className="font-heading text-lg font-semibold text-foreground">{exp.role}</h3>
                 <p className="mb-3 text-sm text-muted-foreground">{exp.company}</p>
-                <p className="mb-4 text-sm leading-relaxed text-muted-foreground">{exp.description}</p>
-                <ul className="space-y-1.5">
-                  {exp.achievements.map((ach, j) => (
-                    <li key={j} className="flex items-start gap-2 text-sm text-muted-foreground">
-                      <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary/60" />
-                      {ach}
-                    </li>
-                  ))}
-                </ul>
+                <p className="text-sm leading-relaxed text-muted-foreground">{exp.description}</p>
               </motion.div>
             </div>
           </SectionReveal>
