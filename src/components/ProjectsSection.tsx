@@ -32,17 +32,12 @@ export default function ProjectsSection({ showAll = false }: { showAll?: boolean
                 <div className="mb-3 text-3xl">{project.emoji}</div>
                 <div className="mb-2 flex items-center gap-2">
                   <h3 className="font-heading text-lg font-semibold text-foreground">{project.name}</h3>
-                  {"ongoing" in project && project.ongoing && (
-                    <span className="rounded-full bg-primary/15 px-2 py-0.5 text-[10px] font-medium text-primary">
-                      Ongoing
-                    </span>
-                  )}
                 </div>
                 <p className="mb-4 text-sm leading-relaxed text-muted-foreground">{project.desc}</p>
 
-                {/* Tech stack */}
+                {"tech" in project && project.tech && (
                 <div className="mb-5 flex flex-wrap gap-1.5">
-                  {project.tech.split(", ").map((t) => (
+                  {(project.tech as string).split(", ").map((t) => (
                     <span
                       key={t}
                       className="rounded-full bg-primary/10 px-2.5 py-0.5 text-[10px] font-medium text-primary"
@@ -51,10 +46,11 @@ export default function ProjectsSection({ showAll = false }: { showAll?: boolean
                     </span>
                   ))}
                 </div>
+                )}
               </div>
 
               <div className="flex gap-2">
-                {"demo" in project && project.demo ? (
+              {"demo" in project && project.demo ? (
                   <a
                     href={project.demo}
                     target="_blank"
